@@ -1,0 +1,34 @@
+import tkinter as tk
+from tkinter import ttk
+
+orderTotal = 0
+
+# Define a function for switching the frames
+def transGreet():
+   greet.pack(fill='both', expand=1)
+   order.pack_forget()
+
+def transOrder():
+   order.pack(fill='both', expand=1)
+   greet.pack_forget()
+
+# root window
+root = tk.Tk()
+root.geometry('300x200')
+root.resizable(False, False)
+root.title('Welcome!')
+
+# Label
+welcomeMessage = ttk.Label(root,text="Welcome to Smoothie Castle!")
+welcomeMessage.pack(ipadx=5,ipady=5)
+
+# order button
+order_button = ttk.Button(root,text='Order')
+order_button.pack(ipadx=5,ipady=4,expand=True)
+
+# exit button
+exit_button = ttk.Button(root,text='Exit',command=lambda: root.destroy())
+exit_button.pack(ipadx=5,ipady=5,expand=True)
+
+
+root.mainloop()
