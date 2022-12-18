@@ -1,34 +1,138 @@
-import tkinter as tk
-from tkinter import ttk
-
-orderTotal = 0
-
-# Define a function for switching the frames
-def transGreet():
-   greet.pack(fill='both', expand=1)
-   order.pack_forget()
-
-def transOrder():
-   order.pack(fill='both', expand=1)
-   greet.pack_forget()
-
-# root window
-root = tk.Tk()
-root.geometry('300x200')
-root.resizable(False, False)
-root.title('Welcome!')
-
-# Label
-welcomeMessage = ttk.Label(root,text="Welcome to Smoothie Castle!")
-welcomeMessage.pack(ipadx=5,ipady=5)
-
-# order button
-order_button = ttk.Button(root,text='Order')
-order_button.pack(ipadx=5,ipady=4,expand=True)
-
-# exit button
-exit_button = ttk.Button(root,text='Exit',command=lambda: root.destroy())
-exit_button.pack(ipadx=5,ipady=5,expand=True)
+import tkinter as tk            
+from tkinter import font as tkfont
+from tkinter import *
+orderTotal = 0.00
 
 
-root.mainloop()
+    
+class OrderApp(tk.Tk):
+
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+
+        self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
+
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        
+        self.frames = {}
+        for F in (StartPage, PageOne, PageTwo, PageThree, PageFour, PageFive):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[page_name] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        self.show_frame("StartPage")
+
+    def show_frame(self, page_name):
+        '''Show a frame for the given page name'''
+        frame = self.frames[page_name]
+        frame.tkraise()
+
+class StartPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Welcome to Smoothie Castle!", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        
+        button1 = tk.Button(self, text="Order",
+                            command=lambda: controller.show_frame("PageOne"))
+        quitButton = tk.Button(self, text="Quit",
+                            command=lambda: app.destroy())
+        button1.pack(ipadx=5,ipady=5)
+        quitButton.pack(ipadx=5,ipady=5)
+
+
+class PageOne(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Select a Flavor", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        strawBanButton = tk.Button(self, text="Strawberry-Banana", command=lambda : controller.show_frame("PageTwo"))
+        mangPineButton = tk.Button(self, text="Mango-Pineapple", command=lambda : controller.show_frame("PageTwo"))
+        vBerryButton = tk.Button(self, text="Very Berry", command=lambda : controller.show_frame("PageTwo"))
+        monarchButton = tk.Button(self, text="monarchButton", command=lambda : controller.show_frame("PageTwo"))
+        
+        exitButton = tk.Button(self, text="Back",
+                           command=lambda: controller.show_frame("StartPage"))
+        strawBanButton.pack(ipadx=5,ipady=5)
+        mangPineButton.pack(ipadx=5,ipady=5)
+        vBerryButton.pack(ipadx=5,ipady=5)
+        monarchButton.pack(ipadx=5,ipady=5)
+        exitButton.pack(ipadx=5,ipady=5)
+      
+
+
+class PageTwo(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Sizes", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        button = tk.Button(self, text="Back to start",
+                           command=lambda: controller.show_frame("StartPage"))
+        smallButton = tk.Button(self,text="Small",command=lambda : controller.show_frame("PageThree"))
+        medButton = tk.Button(self,text="Medium",command=lambda : controller.show_frame("PageFour"))
+        largeButton = tk.Button(self,text="Large",command=lambda : controller.show_frame("PageFive"))
+
+        smallButton.pack(ipadx=5,ipady=5)
+        medButton.pack(ipadx=5,ipady=5)
+        largeButton.pack(ipadx=5,ipady=5)
+        button.pack(ipadx=5,ipady=5)
+
+
+class PageThree(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Thank you for your purchase!", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        exitButton = tk.Button(self, text="Exit",
+                            command=lambda: app.destroy())
+        total=tk.Label(self,text="Your Total Is: $5.27 ")
+            
+        total.pack()
+        label.pack()
+        exitButton.pack(ipadx=5,ipady=5)
+
+
+class PageFour(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Thank you for your purchase!", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        exitButton = tk.Button(self, text="Exit",
+                            command=lambda: app.destroy())
+        total=tk.Label(self,text="Your Total Is: $5.77 ")
+            
+        total.pack()
+        label.pack()
+        exitButton.pack(ipadx=5,ipady=5)
+
+class PageFive(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="Thank you for your purchase!", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+        exitButton = tk.Button(self, text="Exit",
+                            command=lambda: app.destroy())
+        total=tk.Label(self,text="Your Total Is: $6.27 ")
+            
+        total.pack()
+        label.pack()
+        exitButton.pack(ipadx=5,ipady=5)
+
+
+if __name__ == "__main__":
+    app = OrderApp()
+    app.mainloop()
