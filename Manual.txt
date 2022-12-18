@@ -1,0 +1,8 @@
+Currently the newest and only manual, self-serve POS program for massive Smoothie Company "Smoothie Castle" equipt with all the funtions 
+you need in order to own and operate the program. First you must download the executable file, and then extract it to begin
+usage. From there all you should need to do is double-click on the program icon and you well be greeted by our welcome screen.
+To exit the application, press the Quit button, But to put in an order, you're gonna have to press the Order button. From there 
+you can view all available flavors, all of them are the same dollar amount. From the flavor selection screen, you will need to 
+pick the size of your smoothie. Whichever size you pick, you will be delivered to a seperate order screen for each detailing
+your total. Getting payment information wasn't in the scope of this project. All you can do from this screen is view your total
+and select Exit to quit the application.
